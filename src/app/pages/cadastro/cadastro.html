@@ -1,0 +1,102 @@
+<app-header></app-header>
+
+<main class="container my-5">
+  <div class="mb-3">
+    <label for="idInput" class="form-label">Informe o ID</label>
+    <input
+      id="idInput"
+      type="number"
+      class="form-control"
+      placeholder="Digite o ID numérico"
+      [(ngModel)]="id"
+      name="id" />
+  </div>
+  <button class="btn btn-primary" (click)="consultar()">Consultar</button>
+
+  <div *ngIf="resultado" class="mt-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">Dados do Cadastro</h5>
+      </div>
+      <div class="card-body">
+        <p><strong>ID:</strong> {{ resultado.id }}</p>
+        <p><strong>Nome:</strong> {{ resultado.nome }}</p>
+        <p><strong>Departamento:</strong> {{ resultado.departamento }}</p>
+        <p><strong>Endereço:</strong> {{ resultado.endereco }}</p>
+        <p><strong>Email:</strong> {{ resultado.email }}</p>
+        <button class="btn btn-danger mt-2" (click)="excluir()">Exclusão</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="resultado" class="mt-4">
+    <h5>Alterar Cadastro</h5>
+    <form (ngSubmit)="alterar()" #form="ngForm">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          class="form-control"
+          [(ngModel)]="formAlteracao.nome"
+          name="nome"
+          required />
+      </div>
+      <div class="mb-3">
+        <label for="departamento" class="form-label">Departamento</label>
+        <input
+          id="departamento"
+          type="text"
+          class="form-control"
+          [(ngModel)]="formAlteracao.departamento"
+          name="departamento"
+          required />
+      </div>
+      <div class="mb-3">
+        <label for="endereco" class="form-label">Endereço</label>
+        <input
+          id="endereco"
+          type="text"
+          class="form-control"
+          [(ngModel)]="formAlteracao.endereco"
+          name="endereco"
+          required />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          id="email"
+          type="email"
+          class="form-control"
+          [(ngModel)]="formAlteracao.email"
+          name="email"
+          required />
+      </div>
+      <button class="btn btn-warning" type="submit">Alterar</button>
+    </form>
+  </div>
+
+  <div
+    *ngIf="respostaExclusao"
+    class="mt-4 alert"
+    [ngClass]="{
+      'alert-success': respostaExclusao.status === 'Ok',
+      'alert-danger': respostaExclusao.status !== 'Ok'
+    }">
+    <strong>Status:</strong> {{ respostaExclusao.status }}<br />
+    <strong>Mensagem:</strong> {{ respostaExclusao.mensagem }}
+  </div>
+
+  <div
+    *ngIf="respostaAlteracao"
+    class="mt-4 alert"
+    [ngClass]="{
+      'alert-success': respostaAlteracao.status === 'Ok',
+      'alert-danger': respostaAlteracao.status !== 'Ok'
+    }">
+    <strong>Status:</strong> {{ respostaAlteracao.status }}<br />
+    <strong>Mensagem:</strong> {{ respostaAlteracao.mensagem }}
+  </div>
+</main>
+
+<app-footer></app-footer>
